@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5",                          
-    "module": "commonjs",                    
-    "lib": ["es6"],                     
-    "allowJs": true,
-    "outDir": "build",                          
-    "rootDir": "src",
-    "strict": true,         
-    "noImplicitAny": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+      "target": "es6",
+      "module": "commonjs",
+      "outDir": "build/js",
+      "rootDir": "src",
+      "strict": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/types/*.ts", "node_modules", ".vscode"]
 }
