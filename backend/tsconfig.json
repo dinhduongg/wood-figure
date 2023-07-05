@@ -1,13 +1,20 @@
 {
   "compilerOptions": {
-      "target": "es6",
-      "module": "commonjs",
-      "outDir": "build/js",
-      "rootDir": "src",
-      "strict": true,
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "build/js",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/types/*.ts", "node_modules", ".vscode"]
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/interface/*.ts", "node_modules", ".vscode"]
 }
