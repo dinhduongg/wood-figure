@@ -60,7 +60,12 @@ const authService = {
 
         await userSchema.updateOne({ username: payload.username }, { refreshToken: refreshToken })
 
-        return { username: payload.username, accessToken, refreshToken }
+        return {
+          username: payload.username,
+          authorities: payload.authorities,
+          authority: payload.authority,
+          accessToken,
+        }
       } else {
         throw new Error('Mật khẩu không chính xác')
       }
