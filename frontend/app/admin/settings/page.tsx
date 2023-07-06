@@ -8,6 +8,11 @@ async function getPreference() {
   return res.data[0]
 }
 
+export const metadata = {
+  title: 'Settings',
+  description: 'this is admin settings page',
+}
+
 export default async function Settings() {
   const _getPreference = getPreference()
   const preference = await _getPreference

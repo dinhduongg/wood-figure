@@ -47,7 +47,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
       setLoading(true)
       // make api call here
       await privateAxios.patch('/preference/update', data)
-      toast.success('preference updated')
+      toast.success('Cập nhật thông tin thành công')
     } catch (error) {
       toast.error('Some thing went wrong!')
     } finally {
@@ -81,7 +81,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
               name="storeName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Store Name</FormLabel>
+                  <FormLabel>Tên shop</FormLabel>
                   <FormControl>
                     <Input disabled={loading} placeholder="Store name" {...field} />
                   </FormControl>
@@ -93,7 +93,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
               name="facebookURL"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>facebookURL</FormLabel>
+                  <FormLabel>facebook URL</FormLabel>
                   <FormControl>
                     <Input disabled={loading} placeholder="facebookURL" {...field} />
                   </FormControl>
@@ -105,7 +105,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
               name="instagramURL"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>instagramURL</FormLabel>
+                  <FormLabel>instagram URL</FormLabel>
                   <FormControl>
                     <Input disabled={loading} placeholder="instagramURL" {...field} />
                   </FormControl>
@@ -117,7 +117,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>email</FormLabel>
+                  <FormLabel>Shop email</FormLabel>
                   <FormControl>
                     <Input disabled={loading} placeholder="email" {...field} />
                   </FormControl>
@@ -129,7 +129,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>phone</FormLabel>
+                  <FormLabel>Số điện thoại</FormLabel>
                   <FormControl>
                     <Input disabled={loading} placeholder="phone" {...field} />
                   </FormControl>
@@ -141,7 +141,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
               name="logo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>logo</FormLabel>
+                  <FormLabel>Logo</FormLabel>
                   <FormControl>
                     <Input disabled={loading} placeholder="logo" {...field} />
                   </FormControl>
@@ -150,7 +150,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
             />
           </div>
           <Button disabled={loading} type="submit">
-            Save change
+            Cập nhật
           </Button>
         </form>
       </Form>
@@ -160,6 +160,12 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
         description={`${process.env.NEXT_PUBLIC_BACKEND_URL}/preference/get`}
         variant="public"
         method="GET"
+      />
+      <ApiAlert
+        title="Create"
+        description={`${process.env.NEXT_PUBLIC_BACKEND_URL}/preference/create`}
+        variant="admin"
+        method="POST"
       />
       <ApiAlert
         title="Update"

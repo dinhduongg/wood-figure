@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4">
-        <Link href="/admin">
+        <Link href="/admin/overview">
           <div>This will be the icon</div>
         </Link>
         <MainNav className="mx-6" />
