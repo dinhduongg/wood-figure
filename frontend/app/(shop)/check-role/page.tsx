@@ -8,7 +8,7 @@ export default async function CheckRole() {
   const session = await getServerSession(options)
 
   if (session?.user.authority === AuthorityRole.ADMIN) {
-    redirect('/admin')
+    redirect('/admin/overview')
   }
 
   if (session?.user.authority === AuthorityRole.USER) {

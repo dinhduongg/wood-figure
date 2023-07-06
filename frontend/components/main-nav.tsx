@@ -7,13 +7,17 @@ import Link from 'next/link'
 
 export default function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
   const pathname = usePathname()
-  const params = useParams()
 
   const routes = [
     {
+      href: '/admin/overview',
+      label: 'Overview',
+      active: pathname === '/admin/overview',
+    },
+    {
       href: '/admin/settings',
       label: 'Settings',
-      active: pathname === '/settings',
+      active: pathname === '/admin/settings',
     },
   ]
   return (

@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <p>home page</p>
-      <Link href="/admin">admin page</Link> <br />
+      <Link href="/admin/overview">admin page</Link> <br />
       <button onClick={() => signOut()}>log out</button>
     </div>
   )
