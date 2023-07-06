@@ -34,7 +34,7 @@ const authController = {
   refreshAccess: async (req: Request, res: Response) => {
     try {
       const accessToken = await authService.refreshAccess(req.body)
-      return res.status(200).json({ accessToken })
+      return res.status(200).json(accessToken)
     } catch (error: any) {
       return res.status(500).send(getErrorMessage(error))
     }
