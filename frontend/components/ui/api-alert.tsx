@@ -9,6 +9,7 @@ interface ApiAlertProps {
   title: string
   description: string
   variant: 'admin' | 'public'
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 }
 
 const textMap: Record<ApiAlertProps['variant'], string> = {
@@ -21,7 +22,28 @@ const variantMap: Record<ApiAlertProps['variant'], BadgeProps['variant']> = {
   admin: 'destructive',
 }
 
-export const ApiAlert: React.FC<ApiAlertProps> = ({ description, title, variant = 'public' }) => {
+const methodTextMap: Record<ApiAlertProps['method'], string> = {
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  PATCH: 'PATCH',
+  DELETE: 'DELETE',
+}
+
+const methodtMap: Record<ApiAlertProps['method'], BadgeProps['variant']> = {
+  GET: 'get',
+  POST: 'post',
+  PUT: 'put',
+  PATCH: 'patch',
+  DELETE: 'delete',
+}
+
+export const ApiAlert: React.FC<ApiAlertProps> = ({
+  description,
+  title,
+  variant = 'public',
+  method,
+}) => {
   const onCopy = () => {
     navigator.clipboard.writeText(description)
     toast.success('Api route copied to the clipboard')
@@ -34,6 +56,7 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({ description, title, variant 
         <AlertTitle className="flex items-center gap-x-2 m-0">
           {title}
           <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
+          <Badge variant={methodtMap[method]}>{methodTextMap[method]}</Badge>
         </AlertTitle>
       </div>
       <AlertDescription className="mt-4 flex items-center justify-between">

@@ -46,7 +46,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
     try {
       setLoading(true)
       // make api call here
-      await privateAxios.post('/preference/update', data)
+      await privateAxios.patch('/preference/update', data)
       toast.success('preference updated')
     } catch (error) {
       toast.error('Some thing went wrong!')
@@ -156,9 +156,16 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
       </Form>
       <Separator />
       <ApiAlert
-        title="test"
-        description={`${process.env.NEXT_PUBLIC_BACKEND_URL}`}
+        title="Get"
+        description={`${process.env.NEXT_PUBLIC_BACKEND_URL}/preference/get`}
         variant="public"
+        method="GET"
+      />
+      <ApiAlert
+        title="Update"
+        description={`${process.env.NEXT_PUBLIC_BACKEND_URL}/preference/update`}
+        variant="admin"
+        method="PATCH"
       />
     </>
   )
