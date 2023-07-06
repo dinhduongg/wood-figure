@@ -1,7 +1,10 @@
+'use client'
+
 import { Preference } from '@/types/interface/preference.interface'
 import SettingForm from './components/setting-form'
 
 const dummyData: Preference = {
+  _id: 'preference',
   logo: 'random logo',
   facebookURL: 'this is facebook url',
   instagramURL: 'this is instagram url',
@@ -14,6 +17,7 @@ export default function Settings() {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
+        {/* <p>{JSON.stringify(preference)}</p> */}
         <SettingForm initialData={dummyData} />
       </div>
     </div>

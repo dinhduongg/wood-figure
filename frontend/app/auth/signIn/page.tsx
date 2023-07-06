@@ -34,6 +34,8 @@ export default function SignIn() {
     },
   })
 
+  const callbackUrl = '/check-role'
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // TODO: login
     // console.log(values)
@@ -46,9 +48,13 @@ export default function SignIn() {
 
     // if (res?.error) {
     //   console.log(res.error)
+    //   return
     // }
+
     // if (res?.ok) {
+    //   console.log(res)
     //   router.push('/check-role')
+    //   return
     // }
   }
 

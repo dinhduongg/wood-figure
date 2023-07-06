@@ -9,16 +9,18 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import Heading from '@/components/ui/heading'
 import { Button } from '@/components/ui/button'
+import { ApiAlert } from '@/components/ui/api-alert'
 import { Separator } from '@/components/ui/separator'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { Preference } from '@/types/interface/preference.interface'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
-import { ApiAlert } from '@/components/ui/api-alert'
 
 interface SettingsFormProps {
   initialData: Preference
 }
 
 const formSchema = z.object({
+  _id: z.string().min(1),
   storeName: z.string().min(1),
   facebookURL: z.string().min(1),
   instagramURL: z.string().min(1),
@@ -32,6 +34,7 @@ type settingFormValues = z.infer<typeof formSchema>
 export default function SettingForm({ initialData }: SettingsFormProps) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const privateAxios = useAxiosPrivate()
 
   const form = useForm<settingFormValues>({
     resolver: zodResolver(formSchema),
@@ -43,8 +46,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
     try {
       setLoading(true)
       // make api call here
-      console.log(data)
-
+      await privateAxios.post('/preference/update', data)
       toast.success('preference updated')
     } catch (error) {
       toast.error('Some thing went wrong!')
@@ -62,6 +64,18 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
           <div className="grid grid-cols-3 gap-8">
+            <FormField
+              control={form.control}
+              name="_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>_id</FormLabel>
+                  <FormControl>
+                    <Input disabled placeholder="Store name" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="storeName"

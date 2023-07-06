@@ -15,5 +15,5 @@ export default async function CheckRole() {
     redirect('/')
   }
 
-  return <div>{JSON.stringify(session?.user)}</div>
+  return <div>your role is: {session?.user.authority}</div>
 }
