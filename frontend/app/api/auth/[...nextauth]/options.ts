@@ -34,4 +34,9 @@ export const options: NextAuthOptions = {
       return session
     },
   },
+  logger: {
+    debug() {
+      return process.env.NODE_ENV !== 'production'
+    },
+  },
 }

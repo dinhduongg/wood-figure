@@ -2,8 +2,9 @@
 
 import * as z from 'zod'
 import Link from 'next/link'
-import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button } from '@/components/ui/button'
@@ -23,6 +24,8 @@ const formSchema = z.object({
 })
 
 export default function SignIn() {
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,12 +37,19 @@ export default function SignIn() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // TODO: login
     // console.log(values)
-    const result = await signIn('credentials', {
+    const res = await signIn('credentials', {
       username: values.username,
       password: values.password,
       redirect: true,
-      callbackUrl: '/',
+      callbackUrl: '/check-role',
     })
+
+    // if (res?.error) {
+    //   console.log(res.error)
+    // }
+    // if (res?.ok) {
+    //   router.push('/check-role')
+    // }
   }
 
   return (
