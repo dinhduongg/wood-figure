@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 
-import { Authentication } from '@/interface/user.interface'
 import authService from '@/services/auth'
 import { getErrorMessage } from '@/utilities/utils'
 

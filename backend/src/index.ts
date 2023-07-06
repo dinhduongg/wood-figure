@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 
 import logger from '@/utilities/logger'
 import authRoute from '@/routes/auth'
+import preferenceRoute from '@/routes/preference'
 
 dotenv.config()
 const app: Express = express()
@@ -19,6 +20,7 @@ app.use(express.json())
 
 // routes
 app.use('/api/auth', authRoute)
+app.use('/api/preference', preferenceRoute)
 
 // connect to mongodb and run app
 mongoose

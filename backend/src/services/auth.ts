@@ -1,9 +1,8 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { Request } from 'express'
 
-import userSchema from '@/models/user'
 import { Authentication } from '@/interface/user.interface'
+import userSchema from '@/models/user'
 import { userTemplate } from '@/utilities/template'
 
 type credentials = Pick<Authentication, 'username' | 'password'>
