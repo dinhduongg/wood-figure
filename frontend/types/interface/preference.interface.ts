@@ -1,4 +1,5 @@
 export interface Preference {
+  _id: string
   storeName: string
   facebookURL: string
   instagramURL: string
