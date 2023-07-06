@@ -18,7 +18,7 @@ const authService = {
       },
       process.env.JWT_ACCESS_KEY as string,
       {
-        expiresIn: '5s',
+        expiresIn: '10m',
       }
     )
   },

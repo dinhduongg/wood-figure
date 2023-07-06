@@ -12,12 +12,12 @@ router.post(
   preferenceController.createPreference
 )
 
-router.post(
+router.patch(
   '/update',
   middleware.roleBase([AuthorityRole.ADMIN]),
   preferenceController.updatePreference
 )
 
-router.get('/get', middleware.roleBase([AuthorityRole.ADMIN]), preferenceController.getPreference)
+router.get('/get', preferenceController.getPreference)
 
 export default router
