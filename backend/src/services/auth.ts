@@ -32,7 +32,7 @@ const authService = {
       },
       process.env.JWT_REFRESH_KEY as string,
       {
-        expiresIn: '5s',
+        expiresIn: '7d',
       }
     )
   },

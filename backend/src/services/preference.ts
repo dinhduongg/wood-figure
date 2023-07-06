@@ -24,6 +24,16 @@ const preferenceService = {
       throw error
     }
   },
+
+  getPreference: async () => {
+    try {
+      const _preference = await preference.find()
+
+      return _preference
+    } catch (error) {
+      throw error
+    }
+  },
 }
 
 export default preferenceService

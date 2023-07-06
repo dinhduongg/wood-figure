@@ -25,6 +25,16 @@ const preferenceController = {
       return res.status(500).send(getErrorMessage(error))
     }
   },
+
+  getPreference: async (req: Request, res: Response) => {
+    try {
+      const preference = await preferenceService.getPreference()
+
+      return res.status(200).json(preference)
+    } catch (error) {
+      return res.status(500).send(getErrorMessage(error))
+    }
+  },
 }
 
 export default preferenceController

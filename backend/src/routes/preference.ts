@@ -18,4 +18,6 @@ router.post(
   preferenceController.updatePreference
 )
 
+router.get('/get', middleware.roleBase([AuthorityRole.ADMIN]), preferenceController.getPreference)
+
 export default router

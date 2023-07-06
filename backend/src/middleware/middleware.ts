@@ -28,7 +28,7 @@ const middleware = {
         ;(req as CustomRequest).user = decoded
         next()
       } catch (error) {
-        return res.status(400).json({ message: error })
+        return res.status(403).json({ message: error })
       }
     } else {
       return res.status(401).json({ message: 'you are not authenticated' })
