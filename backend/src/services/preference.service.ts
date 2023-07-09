@@ -1,4 +1,4 @@
-import preference from '@/models/preference'
+import preference from '@/models/preference.model'
 import { preferenceTemplate } from '@/utilities/template'
 import { Preference as IPreference } from '@/interface/preference.interface'
 

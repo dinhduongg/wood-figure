@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import preferenceController from '@/controllers/preference'
+import preferenceController from '@/controllers/preference.controller'
 import middleware from '@/middleware/middleware'
 import { AuthorityRole } from '@/interface/enum'
 

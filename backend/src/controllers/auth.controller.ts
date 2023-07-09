@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import authService from '@/services/auth'
+import authService from '@/services/auth.service'
 import { getErrorMessage } from '@/utilities/utils'
 
 const authController = {

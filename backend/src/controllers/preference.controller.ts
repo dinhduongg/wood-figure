@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 import { getErrorMessage } from '@/utilities/utils'
-import preferenceService from '@/services/preference'
+import preferenceService from '@/services/preference.service'
 import { Preference as IPreference } from '@/interface/preference.interface'
 
 const preferenceController = {

@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { Authentication } from '@/interface/user.interface'
-import userSchema from '@/models/user'
+import userSchema from '@/models/user.model'
 import { userTemplate } from '@/utilities/template'
 
 type credentials = Pick<Authentication, 'username' | 'password'>
