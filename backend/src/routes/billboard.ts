@@ -6,11 +6,7 @@ import { AuthorityRole } from '@/interface/enum'
 
 const router: Router = Router()
 
-router.get(
-  '/get',
-  middleware.roleBase([AuthorityRole.ADMIN, AuthorityRole.MANAGER]),
-  billboardController.get
-)
+router.get('/get', billboardController.get)
 
 router.post(
   '/create',
