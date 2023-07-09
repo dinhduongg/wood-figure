@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -12,11 +11,10 @@ export const options: NextAuthOptions = {
         username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
         password: { label: 'Password', type: 'password', placeholder: 'asd' },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const user = await axiosPubllic.post('/auth/sign-in', credentials)
 
         if (user.data) {
-          Cookies.set('access-token', user.data.accessToken)
           return Promise.resolve(user.data)
         } else {
           return null
@@ -32,9 +30,10 @@ export const options: NextAuthOptions = {
       if (trigger === 'update') {
         return { ...token, ...session }
       }
+
       return { ...token, ...user }
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       session.user = token as any
       return session
     },

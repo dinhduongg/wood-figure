@@ -1,12 +1,14 @@
 'use client'
 
-import { signOut } from 'next-auth/react'
+import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import MainNav from '@/components/main-nav'
-import Link from 'next/link'
+import useLogout from '@/hooks/useLogout'
 
 export default function Navbar() {
+  const logOut = useLogout()
+
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4">
@@ -18,16 +20,7 @@ export default function Navbar() {
           <Button variant="outline">
             <Link href="/">Cửa hàng</Link>
           </Button>
-          <Button
-            onClick={() =>
-              signOut({
-                redirect: true,
-                callbackUrl: '/',
-              })
-            }
-          >
-            Đăng xuất
-          </Button>
+          <Button onClick={logOut}>Đăng xuất</Button>
         </div>
       </div>
     </div>

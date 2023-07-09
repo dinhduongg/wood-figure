@@ -2,7 +2,7 @@
 
 import * as z from 'zod'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { toast } from 'react-hot-toast'
 import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -24,8 +24,6 @@ const formSchema = z.object({
 })
 
 export default function SignIn() {
-  const router = useRouter()
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,28 +32,21 @@ export default function SignIn() {
     },
   })
 
-  const callbackUrl = '/check-role'
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // TODO: login
     // console.log(values)
-    const res = await signIn('credentials', {
-      username: values.username,
-      password: values.password,
-      redirect: true,
-      callbackUrl: '/check-role',
+
+    signIn('credentials', {
+      ...values,
+      redirect: false,
+    }).then((callback) => {
+      if (callback?.error) {
+        console.log('2', callback)
+        toast.error(`login fail ${callback.error}`)
+      } else {
+        return window.location.assign(`/check-role`)
+      }
     })
-
-    // if (res?.error) {
-    //   console.log(res.error)
-    //   return
-    // }
-
-    // if (res?.ok) {
-    //   console.log(res)
-    //   router.push('/check-role')
-    //   return
-    // }
   }
 
   return (

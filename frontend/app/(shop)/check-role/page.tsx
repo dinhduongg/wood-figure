@@ -1,5 +1,7 @@
-import { getServerSession } from 'next-auth/next'
+'use server'
+
 import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth/next'
 
 import { AuthorityRole } from '@/types/interface/enum'
 import { options } from '@/app/api/auth/[...nextauth]/options'
@@ -15,5 +17,9 @@ export default async function CheckRole() {
     redirect('/')
   }
 
-  return <div>your role is: {session?.user.authority}</div>
+  return (
+    <div>
+      <div>your role is: {JSON.stringify(session?.user.authority)}</div>
+    </div>
+  )
 }
