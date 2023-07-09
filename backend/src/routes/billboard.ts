@@ -8,6 +8,8 @@ const router: Router = Router()
 
 router.get('/get', billboardController.get)
 
+router.get('/get/:id', billboardController.getOne)
+
 router.post(
   '/create',
   middleware.roleBase([AuthorityRole.ADMIN, AuthorityRole.MANAGER]),

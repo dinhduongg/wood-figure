@@ -4,6 +4,17 @@ import billboardService from '@/services/billboard.service'
 import { getErrorMessage } from '@/utilities/utils'
 
 const billboardController = {
+  getOne: async (req: Request, res: Response) => {
+    try {
+      const params = req.params
+
+      const billboard = await billboardService.getOne(params.id)
+      return res.status(200).json({ billboard })
+    } catch (error) {
+      return res.status(500).send(getErrorMessage(error))
+    }
+  },
+
   get: async (req: Request, res: Response) => {
     try {
       const billboards = await billboardService.get()

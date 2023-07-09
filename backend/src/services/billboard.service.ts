@@ -2,10 +2,18 @@ import billboard from '@/models/billboard.model'
 import { Billboard as IBillboard } from '@/interface/billboard.interface'
 
 const billboardService = {
+  getOne: async (id: string) => {
+    try {
+      const _billboard = await billboard.findById(id)
+      return _billboard
+    } catch (error) {
+      throw error
+    }
+  },
+
   get: async () => {
     try {
       const billboards = await billboard.find()
-
       return billboards
     } catch (error) {
       throw error
