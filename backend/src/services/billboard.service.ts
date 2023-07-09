@@ -29,6 +29,14 @@ const billboardService = {
       throw error
     }
   },
+
+  delete: async (id: string) => {
+    try {
+      await billboard.findByIdAndRemove(id)
+    } catch (error) {
+      throw error
+    }
+  },
 }
 
 export default billboardService

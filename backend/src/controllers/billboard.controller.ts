@@ -35,6 +35,17 @@ const billboardController = {
       return res.status(500).send(getErrorMessage(error))
     }
   },
+
+  delete: async (req: Request, res: Response) => {
+    try {
+      const params = req.params
+
+      await billboardService.delete(params.id)
+      return res.status(200).json({ message: 'billboard deleted' })
+    } catch (error) {
+      return res.status(500).send(getErrorMessage(error))
+    }
+  },
 }
 
 export default billboardController

@@ -20,4 +20,10 @@ router.patch(
   billboardController.update
 )
 
+router.delete(
+  '/delete/:id',
+  middleware.roleBase([AuthorityRole.ADMIN, AuthorityRole.MANAGER]),
+  billboardController.delete
+)
+
 export default router
