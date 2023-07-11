@@ -140,7 +140,7 @@ const authService = {
 
       await userSchema.updateOne({ username: payload.username }, { refreshToken: refreshToken })
 
-      return res.status(200).json(accessToken)
+      return res.status(200).json({ accessToken })
     } catch (error) {
       throw error
     }

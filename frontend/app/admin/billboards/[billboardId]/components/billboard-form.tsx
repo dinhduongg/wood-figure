@@ -67,7 +67,7 @@ export default function BillboardForm({ initialData }: BillBoardProps) {
       router.push(`/admin/billboards`)
       toast.success(toastMessage)
     } catch (error) {
-      toast.error('Some thing went wrong!')
+      toast.error('Some thing went wrong!' + error)
     } finally {
       setLoading(false)
     }

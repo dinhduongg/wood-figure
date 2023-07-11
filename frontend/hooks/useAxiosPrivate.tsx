@@ -28,8 +28,12 @@ export default function useAxiosPrivate() {
       async (error) => {
         const prevRequest = error?.config
         if (error?.response?.status === 403 && !prevRequest?.sent) {
+          console.log('chay 403')
+
           prevRequest.sent = true
           const newAccessToken = await refresh()
+          console.log('new', newAccessToken)
+
           prevRequest.headers['token'] = `Bearer ${newAccessToken}`
           return axiosPrivate(prevRequest)
         }
