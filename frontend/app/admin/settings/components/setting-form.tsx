@@ -9,11 +9,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import Heading from '@/components/ui/heading'
 import { Button } from '@/components/ui/button'
-import { ApiAlert } from '@/components/ui/api-alert'
 import { Separator } from '@/components/ui/separator'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { Preference } from '@/types/interface/preference.interface'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
+import ApiList from '@/components/ui/api-list'
 
 interface SettingsFormProps {
   initialData: Preference
@@ -32,7 +32,6 @@ const formSchema = z.object({
 type settingFormValues = z.infer<typeof formSchema>
 
 export default function SettingForm({ initialData }: SettingsFormProps) {
-  const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const privateAxios = useAxiosPrivate()
 
@@ -46,7 +45,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
     try {
       setLoading(true)
       // make api call here
-      await privateAxios.patch('/preference/update', data)
+      await privateAxios.patch(`/preference/update/${data._id}`, data)
       toast.success('Cập nhật thông tin thành công')
     } catch (error) {
       toast.error('Some thing went wrong!')
@@ -155,24 +154,7 @@ export default function SettingForm({ initialData }: SettingsFormProps) {
         </form>
       </Form>
       <Separator />
-      <ApiAlert
-        title="Get"
-        description={`${process.env.NEXT_PUBLIC_BACKEND_URL}/preference/get`}
-        variant="public"
-        method="GET"
-      />
-      <ApiAlert
-        title="Create"
-        description={`${process.env.NEXT_PUBLIC_BACKEND_URL}/preference/create`}
-        variant="admin"
-        method="POST"
-      />
-      <ApiAlert
-        title="Update"
-        description={`${process.env.NEXT_PUBLIC_BACKEND_URL}/preference/update`}
-        variant="admin"
-        method="PATCH"
-      />
+      <ApiList entityName="preference" />
     </>
   )
 }

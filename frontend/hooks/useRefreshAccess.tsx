@@ -7,7 +7,7 @@ export default function useRefreshAccess() {
 
   const refresh = async () => {
     try {
-      const response = await axiosPrivate.post('/api/auth/refresh-access', {
+      const response = await axiosPrivate.post('/auth/refresh-access', {
         username: session?.user.username,
       })
 
@@ -17,7 +17,7 @@ export default function useRefreshAccess() {
 
       return response.data.accessToken
     } catch (error) {
-      toast.error('RefreshToken hết hạn')
+      toast.error(`RefreshToken hết hạn`)
     }
   }
 

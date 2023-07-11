@@ -1,5 +1,4 @@
 import { axiosPubllic } from '@/axios/axios-client'
-import { Preference } from '@/types/interface/preference.interface'
 import SettingForm from './components/setting-form'
 
 async function getPreference() {
