@@ -13,7 +13,7 @@ router.post(
 )
 
 router.patch(
-  '/update',
+  '/update/:id',
   middleware.roleBase([AuthorityRole.ADMIN]),
   preferenceController.updatePreference
 )

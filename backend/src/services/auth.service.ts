@@ -1,9 +1,11 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { Request, Response } from 'express'
 
-import { Authentication } from '@/interface/user.interface'
 import userSchema from '@/models/user.model'
+import { getErrorMessage } from '@/utilities/utils'
 import { userTemplate } from '@/utilities/template'
+import { Authentication } from '@/interface/user.interface'
 
 type credentials = Pick<Authentication, 'username' | 'password'>
 type JwtPayload = Pick<Authentication, 'username' | 'authorities' | 'authority'>
@@ -37,8 +39,10 @@ const authService = {
     )
   },
 
-  login: async (credentials: credentials) => {
+  login: async (req: Request, res: Response) => {
     try {
+      const credentials = req.body as credentials
+
       const foundUser = await userSchema.findOne({ username: credentials.username })
 
       if (!foundUser) {
@@ -59,12 +63,14 @@ const authService = {
 
         await userSchema.updateOne({ username: payload.username }, { refreshToken: refreshToken })
 
-        return {
+        const user = {
           username: payload.username,
           authorities: payload.authorities,
           authority: payload.authority,
           accessToken,
         }
+
+        return res.status(200).send(user)
       } else {
         throw new Error('Mật khẩu không chính xác')
       }
@@ -73,8 +79,10 @@ const authService = {
     }
   },
 
-  register: async (credentials: credentials) => {
+  register: async (req: Request, res: Response) => {
     try {
+      const credentials = req.body as credentials
+
       const user: Authentication = {
         ...userTemplate,
         username: credentials.username,
@@ -88,21 +96,27 @@ const authService = {
       }
 
       await userSchema.create(user)
+
+      return res.status(200).send('Đăng ký thành công')
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 
-  logOUt: async (credentials: credentials) => {
+  logOut: async (req: Request, res: Response) => {
     try {
+      const credentials = req.body as credentials
       await userSchema.updateOne({ username: credentials.username }, { refreshToken: '' })
+      return res.status(200).json({ message: 'Đăng xuất thành công' })
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 
-  refreshAccess: async (credentials: credentials) => {
+  refreshAccess: async (req: Request, res: Response) => {
     try {
+      const credentials = req.body as credentials
+
       const foundUser = await userSchema.findOne({ username: credentials.username })
 
       if (!foundUser) {
@@ -126,7 +140,7 @@ const authService = {
 
       await userSchema.updateOne({ username: payload.username }, { refreshToken: refreshToken })
 
-      return { accessToken }
+      return res.status(200).json(accessToken)
     } catch (error) {
       throw error
     }

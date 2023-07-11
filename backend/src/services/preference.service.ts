@@ -1,37 +1,45 @@
+import { Request, Response } from 'express'
+
 import preference from '@/models/preference.model'
+import { getErrorMessage } from '@/utilities/utils'
 import { preferenceTemplate } from '@/utilities/template'
 import { Preference as IPreference } from '@/interface/preference.interface'
 
 const preferenceService = {
-  createPreference: async () => {
+  createPreference: async (req: Request, res: Response) => {
     try {
       await preference.create(preferenceTemplate)
+      res.status(200).json({ message: 'Preference created' })
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 
-  updatePreference: async (dto: IPreference) => {
+  updatePreference: async (req: Request, res: Response) => {
     try {
-      const _preference = await preference.findById(dto._id)
+      const { id } = req.params
+      const { _id, ...other } = req.body as IPreference
+
+      const _preference = await preference.findById(id)
 
       if (!_preference) {
-        throw new Error(`Preference với id: ${dto._id} không tồn tại`)
+        throw new Error(`Preference với id: ${id} không tồn tại`)
       }
 
-      await preference.updateOne({ _id: dto._id }, { ...dto })
+      await preference.updateOne({ _id: id }, { ...other })
+      return res.status(200).json({ message: 'Preference updated' })
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 
-  getPreference: async () => {
+  getPreference: async (req: Request, res: Response) => {
     try {
       const _preference = await preference.find()
 
-      return _preference
+      return res.status(200).json(_preference)
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 }

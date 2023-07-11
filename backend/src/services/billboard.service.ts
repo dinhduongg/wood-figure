@@ -1,48 +1,63 @@
+import { v4 as uuidv4 } from 'uuid'
+import { Request, Response } from 'express'
+
 import billboard from '@/models/billboard.model'
+import { getErrorMessage } from '@/utilities/utils'
 import { Billboard as IBillboard } from '@/interface/billboard.interface'
 
 const billboardService = {
-  getOne: async (id: string) => {
+  getOne: async (req: Request, res: Response) => {
     try {
+      const { id } = req.params
       const _billboard = await billboard.findById(id)
-      return _billboard
+
+      return res.status(200).json({ billboard: _billboard })
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 
-  get: async () => {
+  get: async (req: Request, res: Response) => {
     try {
       const billboards = await billboard.find()
-      return billboards
+      return res.status(200).json(billboards)
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 
-  create: async (dto: IBillboard) => {
+  create: async (req: Request, res: Response) => {
     try {
+      const dto = req.body
+      dto._id = uuidv4()
+
       await billboard.create(dto)
+
+      return res.status(200).json({ message: 'billboard created' })
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 
-  update: async (dto: IBillboard) => {
+  update: async (req: Request, res: Response) => {
     try {
-      const { _id, ...rest } = dto
+      const { id } = req.params
+      const { _id, ...rest } = req.body as IBillboard
 
-      await billboard.updateOne({ _id: _id }, { ...rest })
+      await billboard.updateOne({ _id: id }, { ...rest })
+      return res.status(200).json({ message: 'billboard updated' })
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 
-  delete: async (id: string) => {
+  delete: async (req: Request, res: Response) => {
     try {
+      const { id } = req.params
       await billboard.findByIdAndRemove(id)
+      return res.status(200).json({ message: 'billboard deleted' })
     } catch (error) {
-      throw error
+      return res.status(500).send(getErrorMessage(error))
     }
   },
 }

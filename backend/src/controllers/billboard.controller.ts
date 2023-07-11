@@ -5,57 +5,27 @@ import { getErrorMessage } from '@/utilities/utils'
 
 const billboardController = {
   getOne: async (req: Request, res: Response) => {
-    try {
-      const params = req.params
-
-      const billboard = await billboardService.getOne(params.id)
-      return res.status(200).json({ billboard })
-    } catch (error) {
-      return res.status(500).send(getErrorMessage(error))
-    }
+    await billboardService.getOne(req, res)
   },
 
   get: async (req: Request, res: Response) => {
-    try {
-      const billboards = await billboardService.get()
-
-      return res.status(200).json(billboards)
-    } catch (error) {
-      return res.status(500).send(getErrorMessage(error))
-    }
+    await billboardService.get(req, res)
   },
 
   create: async (req: Request, res: Response) => {
-    try {
-      const dto = req.body
-      await billboardService.create(dto)
-
-      return res.status(200).json({ message: 'billboard created' })
-    } catch (error) {
-      return res.status(500).send(getErrorMessage(error))
-    }
+    await billboardService.create(req, res)
   },
 
   update: async (req: Request, res: Response) => {
     try {
-      const dto = req.body
-      await billboardService.update(dto)
-
-      return res.status(200).json({ message: 'billboard updated' })
+      await billboardService.update(req, res)
     } catch (error) {
       return res.status(500).send(getErrorMessage(error))
     }
   },
 
   delete: async (req: Request, res: Response) => {
-    try {
-      const params = req.params
-
-      await billboardService.delete(params.id)
-      return res.status(200).json({ message: 'billboard deleted' })
-    } catch (error) {
-      return res.status(500).send(getErrorMessage(error))
-    }
+    await billboardService.delete(req, res)
   },
 }
 

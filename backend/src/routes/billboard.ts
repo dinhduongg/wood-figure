@@ -17,7 +17,7 @@ router.post(
 )
 
 router.patch(
-  '/update',
+  '/update/:id',
   middleware.roleBase([AuthorityRole.ADMIN, AuthorityRole.MANAGER]),
   billboardController.update
 )
