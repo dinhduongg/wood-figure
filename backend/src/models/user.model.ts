@@ -70,4 +70,4 @@ userSchema.pre('save', async function (next) {
   next()
 })
 
-export default model<IUser>('userSchema', userSchema)
+export default model<IUser>('userSchema', userSchema, 'users')

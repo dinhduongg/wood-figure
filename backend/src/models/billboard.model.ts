@@ -19,4 +19,4 @@ const billboardSchema: Schema<Billboard> = new Schema(
   { timestamps: true, _id: false }
 )
 
-export default model<Billboard>('billboard', billboardSchema)
+export default model<Billboard>('billboardSchema', billboardSchema, 'billboards')

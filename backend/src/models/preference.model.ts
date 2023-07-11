@@ -36,4 +36,4 @@ const preferenceSchema: Schema<Preference> = new Schema(
   { timestamps: true, _id: false }
 )
 
-export default model<Preference>('preference', preferenceSchema)
+export default model<Preference>('preferenceSchema', preferenceSchema, 'preferences')
