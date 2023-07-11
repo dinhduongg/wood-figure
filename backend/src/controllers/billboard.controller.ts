@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 
 import billboardService from '@/services/billboard.service'
-import { getErrorMessage } from '@/utilities/utils'
 
 const billboardController = {
   getOne: async (req: Request, res: Response) => {
@@ -17,11 +16,7 @@ const billboardController = {
   },
 
   update: async (req: Request, res: Response) => {
-    try {
-      await billboardService.update(req, res)
-    } catch (error) {
-      return res.status(500).send(getErrorMessage(error))
-    }
+    await billboardService.update(req, res)
   },
 
   delete: async (req: Request, res: Response) => {
