@@ -1,18 +1,16 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Request, Response } from 'express'
 
-import CategorySchema from '@/models/category.model'
+import HeightSchema from '@/models/height.model'
 import { getErrorMessage } from '@/utilities/utils'
-import { Category as ICategory } from '@/interface/category.interface'
+import { Height as IHeight } from '@/interface/height.inteface'
 
-const categoryService = {
+const heightService = {
   get: async (req: Request, res: Response) => {
     try {
-      const categories = await CategorySchema.find()
-        .populate({ path: 'billboard', select: 'label imageUrl' })
-        .exec()
+      const heights = await HeightSchema.find()
 
-      return res.status(200).json(categories)
+      return res.status(200).json(heights)
     } catch (error) {
       return res.status(500).send(getErrorMessage(error))
     }
@@ -21,11 +19,9 @@ const categoryService = {
   getOne: async (req: Request, res: Response) => {
     try {
       const { id } = req.params
-      const category = await CategorySchema.findById(id)
-        .populate({ path: 'billboard', select: 'label imageUrl' })
-        .exec()
+      const height = await HeightSchema.findById(id)
 
-      return res.status(200).json({ category })
+      return res.status(200).json({ height })
     } catch (error) {
       return res.status(500).send(getErrorMessage(error))
     }
@@ -36,9 +32,9 @@ const categoryService = {
       const dto = req.body
       dto._id = uuidv4()
 
-      await CategorySchema.create(dto)
+      await HeightSchema.create(dto)
 
-      return res.status(200).json({ message: 'Category created' })
+      return res.status(200).json({ message: 'Height created' })
     } catch (error) {
       return res.status(500).send(getErrorMessage(error))
     }
@@ -47,10 +43,10 @@ const categoryService = {
   update: async (req: Request, res: Response) => {
     try {
       const { id } = req.params
-      const { _id, ...rest } = req.body as ICategory
+      const { _id, ...rest } = req.body as IHeight
 
-      await CategorySchema.updateOne({ _id: id }, { ...rest })
-      return res.status(200).json({ message: 'Category updated' })
+      await HeightSchema.updateOne({ _id: id }, { ...rest })
+      return res.status(200).json({ message: 'Height updated' })
     } catch (error) {
       return res.status(500).send(getErrorMessage(error))
     }
@@ -59,12 +55,12 @@ const categoryService = {
   delete: async (req: Request, res: Response) => {
     try {
       const { id } = req.params
-      await CategorySchema.findByIdAndRemove(id)
-      return res.status(200).json({ message: 'Category deleted' })
+      await HeightSchema.findByIdAndRemove(id)
+      return res.status(200).json({ message: 'Height deleted' })
     } catch (error) {
       return res.status(500).send(getErrorMessage(error))
     }
   },
 }
 
-export default categoryService
+export default heightService

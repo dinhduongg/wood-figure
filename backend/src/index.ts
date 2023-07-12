@@ -9,6 +9,7 @@ import authRoute from '@/routes/auth'
 import preferenceRoute from '@/routes/preference'
 import billboardRoute from '@/routes/billboard'
 import categoryRoute from '@/routes/category'
+import heightRoute from '@/routes/height'
 
 dotenv.config()
 const app: Express = express()
@@ -25,6 +26,7 @@ app.use('/api/auth', authRoute)
 app.use('/api/preference', preferenceRoute)
 app.use('/api/billboard', billboardRoute)
 app.use('/api/category', categoryRoute)
+app.use('/api/height', heightRoute)
 
 // connect to mongodb and run app
 mongoose
