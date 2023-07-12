@@ -17,6 +17,7 @@ import ImageUpload from '@/components/ui/image-upload'
 import AlertModal from '@/components/modals/alert-modal'
 import { Billboard } from '@/types/interface/billboard.interface'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
+import useRevalidate from '@/hooks/useRevalidate'
 
 const formSchema = z.object({
   _id: z.string(),
@@ -34,6 +35,7 @@ export default function BillboardForm({ initialData }: BillBoardProps) {
   const router = useRouter()
   const params = useParams()
   const privateAxios = useAxiosPrivate()
+  const revalidate = useRevalidate()
 
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -53,40 +55,45 @@ export default function BillboardForm({ initialData }: BillBoardProps) {
   })
 
   const onSubmit = async (data: BillboardFormValues) => {
-    // TODO update shop preference
     try {
       setLoading(true)
-      // make api call here
+      // TODO: make API call here
 
       if (initialData) {
         await privateAxios.patch(`/billboard/update/${data._id}`, data)
       } else {
         await privateAxios.post('/billboard/create', data)
       }
+
       router.refresh()
       router.push(`/admin/billboards`)
+
       toast.success(toastMessage)
     } catch (error) {
       toast.error('Some thing went wrong!' + error)
     } finally {
       setLoading(false)
+      revalidate()
     }
   }
 
   const onDelete = async () => {
-    // TODO update shop preference
     try {
       setLoading(true)
-      // TODO: make api call here
-      await privateAxios.delete(`/billboard/delete/${params.billboardId}`)
+      // TODO: make API call here
+
+      await privateAxios.delete(`/billboard/delete/${params?.billboardId}`)
+
       router.refresh()
       router.push('/admin/billboards')
+
       toast.success('Billboard deleted')
     } catch (error) {
       toast.error('Some thing went wrong!')
     } finally {
       setLoading(false)
       setIsOpen(false)
+      revalidate()
     }
   }
 

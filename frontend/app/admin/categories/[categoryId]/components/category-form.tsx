@@ -13,7 +13,6 @@ import Heading from '@/components/ui/heading'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-import ImageUpload from '@/components/ui/image-upload'
 import AlertModal from '@/components/modals/alert-modal'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Category } from '@/types/interface/category.interface'
@@ -25,6 +24,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Billboard } from '@/types/interface/billboard.interface'
+import useRevalidate from '@/hooks/useRevalidate'
 
 const formSchema = z.object({
   _id: z.string(),
@@ -44,6 +44,7 @@ export default function CategoryForm({ initialData, billboards }: CategoryProps)
   const router = useRouter()
   const params = useParams()
   const privateAxios = useAxiosPrivate()
+  const revalidate = useRevalidate()
 
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -64,16 +65,16 @@ export default function CategoryForm({ initialData, billboards }: CategoryProps)
   })
 
   const onSubmit = async (data: CategoryFormValues) => {
-    // TODO update shop preference
     try {
       setLoading(true)
-      // make api call here
+      // TODO: make API call here
 
       if (initialData) {
         await privateAxios.patch(`/category/update/${data._id}`, data)
       } else {
         await privateAxios.post('/category/create', data)
       }
+
       router.refresh()
       router.push(`/admin/categories`)
 
@@ -82,23 +83,27 @@ export default function CategoryForm({ initialData, billboards }: CategoryProps)
       toast.error('Some thing went wrong!' + error)
     } finally {
       setLoading(false)
+      revalidate()
     }
   }
 
   const onDelete = async () => {
-    // TODO update shop preference
     try {
       setLoading(true)
-      // TODO: make api call here
-      await privateAxios.delete(`/category/delete/${params.categoryId}`)
+      // TODO: make API call here
+
+      await privateAxios.delete(`/category/delete/${params?.categoryId}`)
+
       router.refresh()
       router.push('/admin/categories')
+
       toast.success('Billboard deleted')
     } catch (error) {
       toast.error('Some thing went wrong!')
     } finally {
       setLoading(false)
       setIsOpen(false)
+      revalidate()
     }
   }
 
