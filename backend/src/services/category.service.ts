@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import { Request, Response } from 'express'
 
 import CategorySchema from '@/models/category.model'
@@ -24,7 +25,7 @@ const categoryService = {
         .populate({ path: 'billboard', select: 'label imageUrl' })
         .exec()
 
-      return res.status(200).json(category)
+      return res.status(200).json({ category })
     } catch (error) {
       return res.status(500).send(getErrorMessage(error))
     }
@@ -33,6 +34,8 @@ const categoryService = {
   create: async (req: Request, res: Response) => {
     try {
       const dto = req.body
+      dto._id = uuidv4()
+
       await CategorySchema.create(dto)
 
       return res.status(200).json({ message: 'Category created' })

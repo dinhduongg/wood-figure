@@ -4,6 +4,10 @@ import { Category } from '@/interface/category.interface'
 
 const categorySchema: Schema<Category> = new Schema(
   {
+    _id: {
+      type: String,
+      required: true,
+    },
     billboardId: {
       type: String,
       required: true,
@@ -19,6 +23,7 @@ const categorySchema: Schema<Category> = new Schema(
   },
   {
     timestamps: true,
+    _id: false,
     toObject: {
       virtuals: true,
     },

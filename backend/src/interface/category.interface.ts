@@ -5,5 +5,5 @@ export interface Category {
   name: string
   link: string
   billboardId: string
-  billboard?: Billboard
+  billboard?: Billboard[]
 }
