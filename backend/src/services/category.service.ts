@@ -8,6 +8,8 @@ const categoryService = {
   get: async (req: Request, res: Response) => {
     try {
       const categories = await CategorySchema.find()
+        .populate({ path: 'billboard', select: 'label imageUrl' })
+        .exec()
 
       return res.status(200).json(categories)
     } catch (error) {
