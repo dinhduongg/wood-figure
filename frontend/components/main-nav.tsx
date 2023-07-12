@@ -1,6 +1,6 @@
 'use client'
 
-import { useParams, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
@@ -23,6 +23,11 @@ export default function MainNav({ className, ...props }: React.HTMLAttributes<HT
       href: '/admin/categories',
       label: 'Categories',
       active: pathname === '/admin/categories',
+    },
+    {
+      href: '/admin/height',
+      label: 'Heights',
+      active: pathname === '/admin/height',
     },
     {
       href: '/admin/settings',
