@@ -17,6 +17,7 @@ import {
 import AlertModal from '@/components/modals/alert-modal'
 
 import { CategoryColumn } from './columns'
+import useRevalidate from '@/hooks/useRevalidate'
 
 interface CellActionProps {
   data: CategoryColumn
@@ -26,19 +27,23 @@ export default function CellAction({ data }: CellActionProps) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const privateAxios = useAxiosPrivate()
+  const revalidate = useRevalidate()
 
   const onConfirm = async () => {
     try {
       setLoading(true)
       //   await axios.delete(`/api/${params.storeId}/billboards/${data.id}`)
       await privateAxios.delete(`/category/delete/${data._id}`)
-      toast.success('Billboard deleted.')
+
       router.refresh()
+
+      toast.success('Billboard deleted.')
     } catch (error) {
       toast.error('Something went wrong')
     } finally {
       setOpen(false)
       setLoading(false)
+      revalidate()
     }
   }
 
