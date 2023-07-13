@@ -1,5 +1,6 @@
 export interface Height {
   _id: string
-  height: number | string
+  name: string
+  value: string
   createdAt: Date
 }

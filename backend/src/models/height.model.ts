@@ -8,7 +8,11 @@ const heightSchema: Schema<Height> = new Schema(
       type: String,
       required: true,
     },
-    height: {
+    name: {
+      type: String,
+      required: true,
+    },
+    value: {
       type: String || Number,
       required: true,
     },
