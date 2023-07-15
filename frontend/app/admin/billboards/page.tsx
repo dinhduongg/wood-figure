@@ -11,6 +11,11 @@ async function getBillboards() {
   return res.data
 }
 
+export const metadata = {
+  title: 'admin billboards',
+  description: 'This is admin billboards page',
+}
+
 export default async function Billboards() {
   const _getBillboards: Promise<Billboard[]> = getBillboards()
   const billboards = await _getBillboards

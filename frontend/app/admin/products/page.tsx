@@ -11,6 +11,11 @@ async function getProducts() {
   return res.data
 }
 
+export const metadata = {
+  title: 'admin products',
+  description: 'This is admin products page',
+}
+
 export default async function Products() {
   const _getProducts: Promise<Product[]> = getProducts()
   const products = await _getProducts

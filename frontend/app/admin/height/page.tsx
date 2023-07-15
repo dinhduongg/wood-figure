@@ -11,6 +11,11 @@ async function getHeights() {
   return res.data
 }
 
+export const metadata = {
+  title: 'admin height',
+  description: 'This is admin height page',
+}
+
 export default async function Heights() {
   const _getHeights: Promise<Height[]> = getHeights()
   const heights = await _getHeights

@@ -11,6 +11,11 @@ async function getCategories() {
   return res.data
 }
 
+export const metadata = {
+  title: 'admin categories',
+  description: 'This is admin categories page',
+}
+
 export default async function Categories() {
   const _getCategories: Promise<Category[]> = getCategories()
   const categories = await _getCategories
