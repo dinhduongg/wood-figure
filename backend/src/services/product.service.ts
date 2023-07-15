@@ -7,7 +7,7 @@ import { Product as IProduct, ProductUpdate } from '@/interface/product.interfac
 
 const productService = {
   upadtePrice: (price: number, discount_percent: number, discount_money: number) => {
-    const discounted_price = price - price * discount_percent - discount_money
+    const discounted_price = price - (price * discount_percent) / 100 - discount_money
 
     return discounted_price
   },
