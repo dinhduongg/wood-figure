@@ -30,6 +30,11 @@ export default function MainNav({ className, ...props }: React.HTMLAttributes<HT
       active: pathname === '/admin/height',
     },
     {
+      href: '/admin/products',
+      label: 'Products',
+      active: pathname === '/admin/products',
+    },
+    {
       href: '/admin/settings',
       label: 'Settings',
       active: pathname === '/admin/settings',

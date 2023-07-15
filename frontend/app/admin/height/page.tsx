@@ -17,7 +17,7 @@ export default async function Heights() {
 
   const formattedHeights: HeightColumn[] = heights.map((item) => ({
     _id: item._id,
-    height: item.height,
+    name: item.name,
     createdAt: format(new Date(item.createdAt), 'MMMM do, yyyy'),
   }))
 

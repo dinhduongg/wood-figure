@@ -27,7 +27,8 @@ import { Height } from '@/types/interface/height.interface'
 
 const formSchema = z.object({
   _id: z.string(),
-  height: z.string().min(1),
+  name: z.string().min(1),
+  value: z.string().min(1),
 })
 
 type HeightFormValues = z.infer<typeof formSchema>
@@ -54,7 +55,8 @@ export default function HeightForm({ initialData }: HeightProps) {
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       _id: '',
-      height: '',
+      name: '',
+      value: '',
     },
   })
 
@@ -128,12 +130,24 @@ export default function HeightForm({ initialData }: HeightProps) {
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="height"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Height</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Height" {...field} />
+                    <Input placeholder="Name + cm" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="value"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Value</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Value" {...field} />
                   </FormControl>
                 </FormItem>
               )}

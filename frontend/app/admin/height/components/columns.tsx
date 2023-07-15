@@ -5,14 +5,14 @@ import CellAction from './cell-action'
 
 export type HeightColumn = {
   _id: string
-  height: string | number
+  name: string
   createdAt: string
 }
 
 export const columns: ColumnDef<HeightColumn>[] = [
   {
-    accessorKey: 'height',
-    header: 'Height',
+    accessorKey: 'name',
+    header: 'Value',
   },
   {
     accessorKey: 'createdAt',
