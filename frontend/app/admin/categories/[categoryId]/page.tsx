@@ -1,7 +1,6 @@
-import { axiosPubllic } from '@/axios/axios-client'
+import { getBillboards } from '@/actions/billboard-action'
+import { getCategory } from '@/actions/category-action'
 import CategoryForm from './components/category-form'
-import { Category } from '@/types/interface/category.interface'
-import { Billboard } from '@/types/interface/billboard.interface'
 
 interface Params {
   params: {
@@ -9,22 +8,11 @@ interface Params {
   }
 }
 
-async function getCategory(id: string) {
-  const res = await axiosPubllic.get(`/category/get/${id}`)
-
-  return res.data.category
-}
-
-async function getBillboards() {
-  const res = await axiosPubllic.get(`/billboard/get`)
-
-  return res.data
-}
-
 export default async function page({ params }: Params) {
-  const _getCategory: Promise<Category> = getCategory(params.categoryId)
-  const _getBillboard: Promise<Billboard[]> = getBillboards()
-  const [category, billboards] = await Promise.all([_getCategory, _getBillboard])
+  const [category, billboards] = await Promise.all([
+    getCategory(params.categoryId),
+    getBillboards(),
+  ])
 
   return (
     <div className="flex-col">

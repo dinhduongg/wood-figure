@@ -1,15 +1,8 @@
 import { format } from 'date-fns'
 
-import { axiosPubllic } from '@/axios/axios-client'
+import { getHeights } from '@/actions/height-action'
 import HeightClient from './components/client'
-import { Height } from '@/types/interface/height.interface'
 import { HeightColumn } from './components/columns'
-
-async function getHeights() {
-  const res = await axiosPubllic.get(`/height/get`)
-
-  return res.data
-}
 
 export const metadata = {
   title: 'admin height',
@@ -17,8 +10,7 @@ export const metadata = {
 }
 
 export default async function Heights() {
-  const _getHeights: Promise<Height[]> = getHeights()
-  const heights = await _getHeights
+  const heights = await getHeights()
 
   const formattedHeights: HeightColumn[] = heights.map((item) => ({
     _id: item._id,

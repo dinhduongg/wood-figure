@@ -1,15 +1,8 @@
 import { format } from 'date-fns'
 
-import { axiosPubllic } from '@/axios/axios-client'
+import { getCategories } from '@/actions/category-action'
 import CategoryClient from './components/client'
-import { Category } from '@/types/interface/category.interface'
 import { CategoryColumn } from './components/columns'
-
-async function getCategories() {
-  const res = await axiosPubllic.get(`/category/get`)
-
-  return res.data
-}
 
 export const metadata = {
   title: 'admin categories',
@@ -17,8 +10,7 @@ export const metadata = {
 }
 
 export default async function Categories() {
-  const _getCategories: Promise<Category[]> = getCategories()
-  const categories = await _getCategories
+  const categories = await getCategories()
 
   const formattedCategories: CategoryColumn[] = categories.map((item) => ({
     _id: item._id,

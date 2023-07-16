@@ -1,6 +1,5 @@
-import { axiosPubllic } from '@/axios/axios-client'
+import { getBillBoard } from '@/actions/billboard-action'
 import BillboardForm from './components/billboard-form'
-import { Billboard } from '@/types/interface/billboard.interface'
 
 interface Params {
   params: {
@@ -8,15 +7,8 @@ interface Params {
   }
 }
 
-async function getBillboard(id: string) {
-  const res = await axiosPubllic.get(`/billboard/get/${id}`)
-
-  return res.data.billboard
-}
-
 export default async function page({ params }: Params) {
-  const _getBillboard: Promise<Billboard> = getBillboard(params.billboardId)
-  const billboard = await _getBillboard
+  const billboard = await getBillBoard(params.billboardId)
 
   return (
     <div className="flex-col">

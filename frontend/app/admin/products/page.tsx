@@ -1,15 +1,8 @@
-import { axiosPubllic } from '@/axios/axios-client'
-import { Product } from '@/types/interface/product.interface'
-import { ProductColumn } from './components/columns'
+import { getProducts } from '@/actions/product-action'
+import { Height } from '@/types/interface/height.interface'
 import { format } from 'date-fns'
 import ProductClient from './components/client'
-import { Height } from '@/types/interface/height.interface'
-
-async function getProducts() {
-  const res = await axiosPubllic.get(`/product/get`)
-
-  return res.data
-}
+import { ProductColumn } from './components/columns'
 
 export const metadata = {
   title: 'admin products',
@@ -17,8 +10,7 @@ export const metadata = {
 }
 
 export default async function Products() {
-  const _getProducts: Promise<Product[]> = getProducts()
-  const products = await _getProducts
+  const products = await getProducts()
 
   const formattedProducts: ProductColumn[] = products.map((item) => ({
     _id: item._id,

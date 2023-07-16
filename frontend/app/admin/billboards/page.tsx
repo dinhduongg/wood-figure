@@ -1,15 +1,8 @@
 import { format } from 'date-fns'
 
-import { axiosPubllic } from '@/axios/axios-client'
 import BilboardClient from './components/client'
-import { Billboard } from '@/types/interface/billboard.interface'
 import { BillboardColumn } from './components/columns'
-
-async function getBillboards() {
-  const res = await axiosPubllic.get(`/billboard/get`)
-
-  return res.data
-}
+import { getBillboards } from '@/actions/billboard-action'
 
 export const metadata = {
   title: 'admin billboards',
@@ -17,8 +10,7 @@ export const metadata = {
 }
 
 export default async function Billboards() {
-  const _getBillboards: Promise<Billboard[]> = getBillboards()
-  const billboards = await _getBillboards
+  const billboards = await getBillboards()
 
   const formattedBillboards: BillboardColumn[] = billboards.map((item) => ({
     _id: item._id,

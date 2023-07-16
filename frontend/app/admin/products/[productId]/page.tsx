@@ -1,8 +1,7 @@
-import { axiosPubllic } from '@/axios/axios-client'
+import { getCategories } from '@/actions/category-action'
+import { getHeights } from '@/actions/height-action'
+import { getProduct } from '@/actions/product-action'
 import ProductForm from './components/product-form'
-import { Product } from '@/types/interface/product.interface'
-import { Height } from '@/types/interface/height.interface'
-import { Category } from '@/types/interface/category.interface'
 
 interface Params {
   params: {
@@ -10,32 +9,11 @@ interface Params {
   }
 }
 
-async function getProduct(id: string) {
-  const res = await axiosPubllic.get(`/product/get/${id}`)
-
-  return res.data.product
-}
-
-async function getCategories() {
-  const res = await axiosPubllic.get('/category/get')
-
-  return res.data
-}
-
-async function getHeights() {
-  const res = await axiosPubllic.get('/height/get')
-
-  return res.data
-}
-
 export default async function page({ params }: Params) {
-  const _getProduct: Promise<Product> = getProduct(params.productId)
-  const _getHeights: Promise<Height[]> = getHeights()
-  const _getCategories: Promise<Category[]> = getCategories()
   const [product, heights, categories] = await Promise.all([
-    _getProduct,
-    _getHeights,
-    _getCategories,
+    getProduct(params.productId),
+    getHeights(),
+    getCategories(),
   ])
 
   return (

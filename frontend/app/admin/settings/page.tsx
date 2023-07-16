@@ -1,11 +1,5 @@
-import { axiosPubllic } from '@/axios/axios-client'
+import { getPreference } from '@/actions/preference-action'
 import SettingForm from './components/setting-form'
-
-async function getPreference() {
-  const res = await axiosPubllic.get('/preference/get')
-
-  return res.data[0]
-}
 
 export const metadata = {
   title: 'Settings',
@@ -13,8 +7,7 @@ export const metadata = {
 }
 
 export default async function Settings() {
-  const _getPreference = getPreference()
-  const preference = await _getPreference
+  const preference = await getPreference()
 
   return (
     <div className="flex-col">

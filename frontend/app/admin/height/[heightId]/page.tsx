@@ -1,6 +1,5 @@
-import { axiosPubllic } from '@/axios/axios-client'
+import { getHeight } from '@/actions/height-action'
 import HeightForm from './components/height-form'
-import { Height } from '@/types/interface/height.interface'
 
 interface Params {
   params: {
@@ -8,15 +7,8 @@ interface Params {
   }
 }
 
-async function getHeight(id: string) {
-  const res = await axiosPubllic.get(`/height/get/${id}`)
-
-  return res.data.height
-}
-
 export default async function page({ params }: Params) {
-  const _getHeight: Promise<Height> = getHeight(params.heightId)
-  const height = await _getHeight
+  const height = await getHeight(params.heightId)
 
   return (
     <div className="flex-col">

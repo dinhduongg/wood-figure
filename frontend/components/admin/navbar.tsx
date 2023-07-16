@@ -3,7 +3,7 @@
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
-import MainNav from '@/components/main-nav'
+import MainNav from '@/components/admin/main-nav'
 import useLogout from '@/hooks/useLogout'
 
 export default function Navbar() {

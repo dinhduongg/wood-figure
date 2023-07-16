@@ -1,20 +1,15 @@
-'use client'
+import { getBillBoard } from '@/actions/billboard-action'
+import Billboard from '@/components/shop/billboard'
+import Container from '@/components/ui/container'
 
-import Link from 'next/link'
-import { useSession } from 'next-auth/react'
-
-import useLogout from '@/hooks/useLogout'
-
-export default function Home() {
-  const { data: session } = useSession()
-  const logOut = useLogout()
+export default async function Home() {
+  const billboard = await getBillBoard('5d70178e-7306-465e-a124-2cce7beb9dcc')
 
   return (
-    <div>
-      <p>home page</p> <br />
-      <p>{JSON.stringify(session)}</p> <br />
-      <Link href="/admin/overview">admin page</Link> <br /> <br />
-      <button onClick={() => logOut()}>log out</button>
-    </div>
+    <Container>
+      <div className="space-y-10 pb-10">
+        <Billboard data={billboard} />
+      </div>
+    </Container>
   )
 }
