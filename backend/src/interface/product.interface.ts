@@ -33,3 +33,9 @@ export interface ProductUpdate {
   heights: Height[]
   createdAt: Date
 }
+
+export interface Query {
+  isFeatured: string
+  categoryId: string
+  heightId: string
+}

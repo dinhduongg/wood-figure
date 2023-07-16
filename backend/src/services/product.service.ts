@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 
 import ProductSchema from '@/models/product.model'
 import { getErrorMessage } from '@/utilities/utils'
-import { Product as IProduct, ProductUpdate } from '@/interface/product.interface'
+import { Product as IProduct, ProductUpdate, Query } from '@/interface/product.interface'
 
 const productService = {
   upadtePrice: (price: number, discount_percent: number, discount_money: number) => {
@@ -14,7 +14,17 @@ const productService = {
 
   get: async (req: Request, res: Response) => {
     try {
-      const products = await ProductSchema.find()
+      const query = req.query as unknown as Query
+
+      const where = {} as any
+
+      if (query) {
+        if (query.isFeatured) where['isFeatured'] = query.isFeatured === 'true' ? true : false
+        if (query.categoryId) where['categoryId'] = query.categoryId
+        if (query.heightId) where['heightId'] = { $in: [query.heightId] }
+      }
+
+      const products = await ProductSchema.find(where)
         .populate({ path: 'category', select: 'name' })
         .populate({ path: 'heights', select: 'name' })
         .exec()
